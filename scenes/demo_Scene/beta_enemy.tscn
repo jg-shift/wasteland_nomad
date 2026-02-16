@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://f3nqg7631nwb"]
+
+[ext_resource type="Script" uid="uid://bj5tdrjyoeh1t" path="res://scenes/demo_Scene/beta_enemy.gd" id="1_6ykrx"]
+[ext_resource type="Texture2D" uid="uid://dykur82e04qp4" path="res://img/fly_beta.png" id="1_ediq2"]
+[ext_resource type="Shader" uid="uid://c4qnreprbfkjr" path="res://scenes/demo_Scene/beta_enemy.gdshader" id="2_51fi7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0w08n"]
+shader = ExtResource("2_51fi7")
+shader_parameter/flash = 0.0
+shader_parameter/sat_mul = 1.0
+shader_parameter/val_mul = 1.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ykrx"]
+radius = 29.0
+height = 98.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_51fi7"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 8
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_0w08n"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.47289732, 0.62706345), -1.8165197, -1.8165197, 0, 0, Vector2(0.99326867, 0.014552593), -0.074162394, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_if4g1"]
+curve = SubResource("Curve_0w08n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_curch"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 42.2
+emission_ring_radius = 52.81
+emission_ring_inner_radius = 29.43
+emission_ring_cone_angle = 90.0
+angle_min = -99.99999
+angle_max = 100.000015
+direction = Vector3(0, 0, 0)
+spread = 10.778
+gravity = Vector3(0, 20, 0)
+radial_accel_min = 0.99999774
+radial_accel_max = 37.579998
+scale_curve = SubResource("CurveTexture_if4g1")
+anim_offset_max = 1.0
+
+[node name="Enemy" type="RigidBody2D" unique_id=1453633536]
+script = ExtResource("1_6ykrx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=518064825]
+material = SubResource("ShaderMaterial_0w08n")
+rotation = 3.1415927
+texture = ExtResource("1_ediq2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=101608860]
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_6ykrx")
+
+[node name="Explosion" type="GPUParticles2D" parent="." unique_id=1912725112]
+material = SubResource("CanvasItemMaterial_51fi7")
+emitting = false
+amount = 64
+texture = ExtResource("1_ediq2")
+lifetime = 3.0
+one_shot = true
+speed_scale = 5.8
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_curch")

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://v7ghkf5svxac"]
+
+[ext_resource type="Script" uid="uid://lvb8dut2yns1" path="res://scenes/demo_Scene/node_2d.gd" id="1_gr00w"]
+[ext_resource type="TileSet" uid="uid://cjdeb1vb0cn5k" path="res://tilesets/terrain2.tres" id="2_suvfl"]
+[ext_resource type="PackedScene" uid="uid://bk54mq8a7f0ji" path="res://scenes/demo_Scene/player.tscn" id="3_suvfl"]
+[ext_resource type="PackedScene" uid="uid://f3nqg7631nwb" path="res://scenes/demo_Scene/beta_enemy.tscn" id="4_6dff2"]
+[ext_resource type="Script" uid="uid://bq5ffbijj5g1s" path="res://scenes/demo_Scene/enemy_spawner.gd" id="5_qmym2"]
+
+[node name="Flight" type="Node2D" unique_id=531799471 node_paths=PackedStringArray("tile_layer")]
+script = ExtResource("1_gr00w")
+tile_layer = NodePath("Terrain")
+
+[node name="Terrain" type="TileMapLayer" parent="." unique_id=33503064]
+tile_set = ExtResource("2_suvfl")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=917071154]
+position = Vector2(720, 444)
+
+[node name="PlayerCraft" parent="." unique_id=1243444185 instance=ExtResource("3_suvfl")]
+position = Vector2(713, 688)
+
+[node name="Enemy" parent="." unique_id=1453633536 instance=ExtResource("4_6dff2")]
+position = Vector2(104, -145)
+
+[node name="EnemySpawner" type="Node2D" parent="." unique_id=2073052166 node_paths=PackedStringArray("enemy_template", "player")]
+position = Vector2(104, -145)
+script = ExtResource("5_qmym2")
+enemy_template = NodePath("../Enemy")
+player = NodePath("../PlayerCraft")
+
+[node name="Bullets" type="Node2D" parent="." unique_id=2006418492]

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bh74rah1o46rj"]
+
+[ext_resource type="Texture2D" uid="uid://bmdnlenivd01c" path="res://img/raw/bullets/Fire Effect and Bullet 16x16.png" id="1_j71fg"]
+[ext_resource type="Script" uid="uid://cwwnuehmo1ljg" path="res://scenes/demo_Scene/weapon_machinegun_simple.gd" id="1_xeljk"]
+[ext_resource type="Script" uid="uid://cmqj0241ljv3t" path="res://scenes/demo_Scene/simple_bullet.gd" id="2_0lbnj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oget2"]
+radius = 4.0
+
+[node name="weapon_machinegun_simple" type="Node2D" unique_id=502748289]
+script = ExtResource("1_xeljk")
+
+[node name="Bullet" type="Area2D" parent="." unique_id=1519804793]
+script = ExtResource("2_0lbnj")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bullet" unique_id=1086875711]
+position = Vector2(0, 2)
+rotation = -3.1415925
+scale = Vector2(2, 2)
+texture = ExtResource("1_j71fg")
+region_enabled = true
+region_rect = Rect2(54, 99, 5, 11)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet" unique_id=1473167854]
+shape = SubResource("CircleShape2D_oget2")
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=105765597]
