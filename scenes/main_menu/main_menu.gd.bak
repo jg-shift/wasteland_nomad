@@ -1,0 +1,37 @@
+extends Node
+
+## Ожидаемая структура сцены:
+## MainMenu (Node)
+##   CanvasLayer
+##     TextureRect          ← фон (stretch_mode = STRETCH_SCALE, anchors = full rect)
+##     CenterContainer      ← anchors = full rect
+##       VBoxContainer
+##         Label            ← название игры
+##         Button (name="StartButton")
+##         Button (name="SettingsButton")
+##         Button (name="QuitButton")
+
+const GAME_SCENE := "res://scenes/demo_Scene/node_2d.tscn"
+
+@onready var start_btn:    Button = $CanvasLayer/CenterContainer/VBoxContainer/StartButton
+@onready var settings_btn: Button = $CanvasLayer/CenterContainer/VBoxContainer/SettingsButton
+@onready var quit_btn:     Button = $CanvasLayer/CenterContainer/VBoxContainer/QuitButton
+
+
+func _ready() -> void:
+	start_btn.pressed.connect(_on_start_pressed)
+	settings_btn.pressed.connect(_on_settings_pressed)
+	quit_btn.pressed.connect(_on_quit_pressed)
+
+
+func _on_start_pressed() -> void:
+	get_tree().change_scene_to_file(GAME_SCENE)
+
+
+func _on_settings_pressed() -> void:
+	# Заглушка — добавь сцену настроек когда будет готова
+	print("Settings — coming soon")
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()

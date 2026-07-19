@@ -1,0 +1,164 @@
+[gd_scene load_steps=7 format=3]
+
+[sub_resource type="RectangleShape2D" id="Boundary_horizontal"]
+size = Vector2(1600, 40)
+
+[sub_resource type="RectangleShape2D" id="Boundary_vertical"]
+size = Vector2(40, 1000)
+
+[sub_resource type="CircleShape2D" id="Service_shape"]
+radius = 55.0
+
+[sub_resource type="CircleShape2D" id="Tutorial_shape"]
+radius = 90.0
+
+[sub_resource type="NavigationPolygon" id="Navigation_first_hub"]
+vertices = PackedVector2Array(40, 40, 1400, 40, 1400, 860, 40, 860)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+
+[sub_resource type="RectangleShape2D" id="Npc_shape"]
+size = Vector2(32, 48)
+
+[node name="FirstHub" type="Node2D"]
+
+[node name="Environment" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, 0, 1440, 0, 1440, 900, 0, 900)
+color = Color(0.24, 0.19, 0.13, 1)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("Navigation_first_hub")
+
+[node name="Boundaries" type="Node2D" parent="."]
+
+[node name="Top" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(720, 20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Top"]
+shape = SubResource("Boundary_horizontal")
+
+[node name="Bottom" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(720, 880)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Bottom"]
+shape = SubResource("Boundary_horizontal")
+
+[node name="Left" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(20, 450)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Left"]
+shape = SubResource("Boundary_vertical")
+
+[node name="Right" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(1420, 450)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Right"]
+shape = SubResource("Boundary_vertical")
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="FlightArrival" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(720, 760)
+
+[node name="WalkArrival" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(180, 450)
+
+[node name="DefaultSpawn" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(720, 680)
+
+[node name="NPCs" type="Node2D" parent="."]
+
+[node name="WelcomeNPC" type="StaticBody2D" parent="NPCs"]
+position = Vector2(720, 540)
+
+[node name="Visual" type="Polygon2D" parent="NPCs/WelcomeNPC"]
+polygon = PackedVector2Array(-16, -24, 16, -24, 16, 24, -16, 24)
+color = Color(0.78, 0.62, 0.3, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPCs/WelcomeNPC"]
+shape = SubResource("Npc_shape")
+
+[node name="ServicePoints" type="Node2D" parent="."]
+
+[node name="RepairStation" type="Area2D" parent="ServicePoints"]
+position = Vector2(280, 250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ServicePoints/RepairStation"]
+shape = SubResource("Service_shape")
+
+[node name="Label" type="Label" parent="ServicePoints/RepairStation"]
+offset_left = -55.0
+offset_top = -18.0
+offset_right = 55.0
+offset_bottom = 18.0
+text = "REPAIR"
+horizontal_alignment = 1
+
+[node name="TradeTerminal" type="Area2D" parent="ServicePoints"]
+position = Vector2(500, 250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ServicePoints/TradeTerminal"]
+shape = SubResource("Service_shape")
+
+[node name="Label" type="Label" parent="ServicePoints/TradeTerminal"]
+offset_left = -55.0
+offset_top = -18.0
+offset_right = 55.0
+offset_bottom = 18.0
+text = "TRADE"
+horizontal_alignment = 1
+
+[node name="CraftStation" type="Area2D" parent="ServicePoints"]
+position = Vector2(720, 250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ServicePoints/CraftStation"]
+shape = SubResource("Service_shape")
+
+[node name="Label" type="Label" parent="ServicePoints/CraftStation"]
+offset_left = -55.0
+offset_top = -18.0
+offset_right = 55.0
+offset_bottom = 18.0
+text = "CRAFT"
+horizontal_alignment = 1
+
+[node name="HackingTerminal" type="Area2D" parent="ServicePoints"]
+position = Vector2(940, 250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ServicePoints/HackingTerminal"]
+shape = SubResource("Service_shape")
+
+[node name="Label" type="Label" parent="ServicePoints/HackingTerminal"]
+offset_left = -55.0
+offset_top = -18.0
+offset_right = 55.0
+offset_bottom = 18.0
+text = "HACK"
+horizontal_alignment = 1
+
+[node name="NavigationTerminal" type="Area2D" parent="ServicePoints"]
+position = Vector2(1160, 250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ServicePoints/NavigationTerminal"]
+shape = SubResource("Service_shape")
+
+[node name="Label" type="Label" parent="ServicePoints/NavigationTerminal"]
+offset_left = -70.0
+offset_top = -18.0
+offset_right = 70.0
+offset_bottom = 18.0
+text = "NAVIGATION"
+horizontal_alignment = 1
+
+[node name="TutorialTriggers" type="Node2D" parent="."]
+
+[node name="WelcomeTrigger" type="Area2D" parent="TutorialTriggers"]
+position = Vector2(720, 650)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TutorialTriggers/WelcomeTrigger"]
+shape = SubResource("Tutorial_shape")
+
+[node name="MapUnlockTrigger" type="Area2D" parent="TutorialTriggers"]
+position = Vector2(1160, 340)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TutorialTriggers/MapUnlockTrigger"]
+shape = SubResource("Tutorial_shape")

@@ -46,7 +46,10 @@ scale_curve = SubResource("CurveTexture_if4g1")
 anim_offset_max = 1.0
 
 [node name="Enemy" type="RigidBody2D" unique_id=1453633536]
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_6ykrx")
+max_scale = 1.1
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=518064825]
 material = SubResource("ShaderMaterial_0w08n")

@@ -1,0 +1,326 @@
+{
+  "cell_size": [
+    192,
+    40
+  ],
+  "states": [
+    "active",
+    "passive",
+    "pressed",
+    "focus"
+  ],
+  "buttons": {
+    "repair": {
+      "active": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 40,
+        "label": "Repair",
+        "text_rect": [
+          52,
+          14,
+          70,
+          14
+        ],
+        "icon_rect": [
+          17,
+          9,
+          28,
+          28
+        ]
+      },
+      "passive": {
+        "x": 192,
+        "y": 0,
+        "w": 192,
+        "h": 40,
+        "label": "Repair",
+        "text_rect": [
+          244,
+          14,
+          70,
+          14
+        ],
+        "icon_rect": [
+          209,
+          9,
+          28,
+          28
+        ]
+      },
+      "pressed": {
+        "x": 384,
+        "y": 0,
+        "w": 192,
+        "h": 40,
+        "label": "Repair",
+        "text_rect": [
+          436,
+          17,
+          70,
+          14
+        ],
+        "icon_rect": [
+          401,
+          11,
+          28,
+          28
+        ]
+      },
+      "focus": {
+        "x": 576,
+        "y": 0,
+        "w": 192,
+        "h": 40,
+        "label": "Repair",
+        "text_rect": [
+          628,
+          14,
+          70,
+          14
+        ],
+        "icon_rect": [
+          593,
+          9,
+          28,
+          28
+        ]
+      }
+    },
+    "buy_damage": {
+      "active": {
+        "x": 0,
+        "y": 40,
+        "w": 192,
+        "h": 40,
+        "label": "Buy Damage",
+        "text_rect": [
+          52,
+          54,
+          114,
+          14
+        ],
+        "icon_rect": [
+          17,
+          49,
+          28,
+          28
+        ]
+      },
+      "passive": {
+        "x": 192,
+        "y": 40,
+        "w": 192,
+        "h": 40,
+        "label": "Buy Damage",
+        "text_rect": [
+          244,
+          54,
+          114,
+          14
+        ],
+        "icon_rect": [
+          209,
+          49,
+          28,
+          28
+        ]
+      },
+      "pressed": {
+        "x": 384,
+        "y": 40,
+        "w": 192,
+        "h": 40,
+        "label": "Buy Damage",
+        "text_rect": [
+          436,
+          57,
+          114,
+          14
+        ],
+        "icon_rect": [
+          401,
+          51,
+          28,
+          28
+        ]
+      },
+      "focus": {
+        "x": 576,
+        "y": 40,
+        "w": 192,
+        "h": 40,
+        "label": "Buy Damage",
+        "text_rect": [
+          628,
+          54,
+          114,
+          14
+        ],
+        "icon_rect": [
+          593,
+          49,
+          28,
+          28
+        ]
+      }
+    },
+    "buy_health": {
+      "active": {
+        "x": 0,
+        "y": 80,
+        "w": 192,
+        "h": 40,
+        "label": "Buy Health",
+        "text_rect": [
+          52,
+          94,
+          114,
+          14
+        ],
+        "icon_rect": [
+          17,
+          89,
+          28,
+          28
+        ]
+      },
+      "passive": {
+        "x": 192,
+        "y": 80,
+        "w": 192,
+        "h": 40,
+        "label": "Buy Health",
+        "text_rect": [
+          244,
+          94,
+          114,
+          14
+        ],
+        "icon_rect": [
+          209,
+          89,
+          28,
+          28
+        ]
+      },
+      "pressed": {
+        "x": 384,
+        "y": 80,
+        "w": 192,
+        "h": 40,
+        "label": "Buy Health",
+        "text_rect": [
+          436,
+          97,
+          114,
+          14
+        ],
+        "icon_rect": [
+          401,
+          91,
+          28,
+          28
+        ]
+      },
+      "focus": {
+        "x": 576,
+        "y": 80,
+        "w": 192,
+        "h": 40,
+        "label": "Buy Health",
+        "text_rect": [
+          628,
+          94,
+          114,
+          14
+        ],
+        "icon_rect": [
+          593,
+          89,
+          28,
+          28
+        ]
+      }
+    },
+    "continue": {
+      "active": {
+        "x": 0,
+        "y": 120,
+        "w": 192,
+        "h": 40,
+        "label": "CONTINUE",
+        "text_rect": [
+          52,
+          134,
+          94,
+          14
+        ],
+        "icon_rect": [
+          17,
+          129,
+          28,
+          28
+        ]
+      },
+      "passive": {
+        "x": 192,
+        "y": 120,
+        "w": 192,
+        "h": 40,
+        "label": "CONTINUE",
+        "text_rect": [
+          244,
+          134,
+          94,
+          14
+        ],
+        "icon_rect": [
+          209,
+          129,
+          28,
+          28
+        ]
+      },
+      "pressed": {
+        "x": 384,
+        "y": 120,
+        "w": 192,
+        "h": 40,
+        "label": "CONTINUE",
+        "text_rect": [
+          436,
+          137,
+          94,
+          14
+        ],
+        "icon_rect": [
+          401,
+          131,
+          28,
+          28
+        ]
+      },
+      "focus": {
+        "x": 576,
+        "y": 120,
+        "w": 192,
+        "h": 40,
+        "label": "CONTINUE",
+        "text_rect": [
+          628,
+          134,
+          94,
+          14
+        ],
+        "icon_rect": [
+          593,
+          129,
+          28,
+          28
+        ]
+      }
+    }
+  }
+}

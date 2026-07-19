@@ -1,0 +1,120 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="PackedScene" path="res://gameplay/vehicles/crashed_craft.tscn" id="1_craft"]
+
+[sub_resource type="RectangleShape2D" id="Boundary_horizontal"]
+size = Vector2(1600, 40)
+
+[sub_resource type="RectangleShape2D" id="Boundary_vertical"]
+size = Vector2(40, 1000)
+
+[sub_resource type="CircleShape2D" id="Trigger_shape"]
+radius = 100.0
+
+[sub_resource type="NavigationPolygon" id="Navigation_crash_site"]
+vertices = PackedVector2Array(40, 40, 1400, 40, 1400, 860, 40, 860)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+
+[sub_resource type="RectangleShape2D" id="Resource_shape"]
+size = Vector2(30, 30)
+
+[sub_resource type="RectangleShape2D" id="Resume_shape"]
+size = Vector2(100, 60)
+
+[node name="TutorialCrashSite" type="Node2D"]
+
+[node name="Terrain" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, 0, 1440, 0, 1440, 900, 0, 900)
+color = Color(0.18, 0.24, 0.16, 1)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("Navigation_crash_site")
+
+[node name="Boundaries" type="Node2D" parent="."]
+
+[node name="Top" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(720, 20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Top"]
+shape = SubResource("Boundary_horizontal")
+
+[node name="Bottom" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(720, 880)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Bottom"]
+shape = SubResource("Boundary_horizontal")
+
+[node name="Left" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(20, 450)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Left"]
+shape = SubResource("Boundary_vertical")
+
+[node name="Right" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(1420, 450)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Right"]
+shape = SubResource("Boundary_vertical")
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="PlayerArrival" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(330, 650)
+
+[node name="EnemySpawns" type="Node2D" parent="SpawnPoints"]
+
+[node name="EnemySpawnA" type="Marker2D" parent="SpawnPoints/EnemySpawns"]
+position = Vector2(980, 260)
+
+[node name="EnemySpawnB" type="Marker2D" parent="SpawnPoints/EnemySpawns"]
+position = Vector2(1120, 650)
+
+[node name="CrashedCraftSpawn" type="Marker2D" parent="."]
+position = Vector2(520, 500)
+
+[node name="CrashedCraft" parent="." instance=ExtResource("1_craft")]
+position = Vector2(520, 500)
+
+[node name="RepairResources" type="Node2D" parent="."]
+
+[node name="RepairPartA" type="Area2D" parent="RepairResources"]
+position = Vector2(820, 260)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RepairResources/RepairPartA"]
+shape = SubResource("Resource_shape")
+
+[node name="RepairPartB" type="Area2D" parent="RepairResources"]
+position = Vector2(1050, 440)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RepairResources/RepairPartB"]
+shape = SubResource("Resource_shape")
+
+[node name="RepairPartC" type="Area2D" parent="RepairResources"]
+position = Vector2(800, 720)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RepairResources/RepairPartC"]
+shape = SubResource("Resource_shape")
+
+[node name="EncounterAreas" type="Node2D" parent="."]
+
+[node name="TutorialEncounter" type="Area2D" parent="EncounterAreas"]
+position = Vector2(950, 450)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EncounterAreas/TutorialEncounter"]
+shape = SubResource("Trigger_shape")
+
+[node name="TutorialTriggers" type="Node2D" parent="."]
+
+[node name="WakeUpTrigger" type="Area2D" parent="TutorialTriggers"]
+position = Vector2(330, 650)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TutorialTriggers/WakeUpTrigger"]
+shape = SubResource("Trigger_shape")
+
+[node name="ExitMarkers" type="Node2D" parent="."]
+
+[node name="ResumeFlight" type="Area2D" parent="ExitMarkers"]
+position = Vector2(520, 410)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitMarkers/ResumeFlight"]
+shape = SubResource("Resume_shape")

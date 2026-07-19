@@ -1,4 +1,4 @@
-extends Node2D
+extends WeaponBase
 class_name WeaponMachinegunSimple
 
 @export var enabled: bool = true
@@ -11,10 +11,11 @@ class_name WeaponMachinegunSimple
 
 var _shooting: bool = false
 var _fire_timer: Timer
-var _last_ctx: Dictionary = {}
+var _bullets_root: Node2D  # cached on first use
+var _damage_modifier: DamageModifier
+
 
 func _ready() -> void:
-	# Шаблон пули: просто прячем и выключаем коллизию/процесс
 	bullet_template.visible = false
 	bullet_template.set_process(false)
 	bullet_template.set_physics_process(false)
@@ -27,26 +28,27 @@ func _ready() -> void:
 	_fire_timer.one_shot = false
 	add_child(_fire_timer)
 	_fire_timer.timeout.connect(_on_fire_tick)
+	_fire_timer.wait_time = 1.0 / maxf(0.1, fire_rate)
 
-	_update_timer_period()
 
-func _update_timer_period() -> void:
-	fire_rate = maxf(0.1, fire_rate)
-	_fire_timer.wait_time = 1.0 / fire_rate
-
-func trigger_push(ctx: Dictionary = {}) -> void:
+func trigger_push(_context: WeaponContext) -> void:
 	if _shooting or not enabled:
 		return
-	_last_ctx = ctx
 	_shooting = true
-	_update_timer_period()
+	_fire_timer.wait_time = 1.0 / maxf(0.1, fire_rate)
 
 	_spawn_bullet()
 	_fire_timer.start()
 
-func trigger_release(_ctx: Dictionary = {}) -> void:
+
+func trigger_release(_context: WeaponContext) -> void:
 	_shooting = false
 	_fire_timer.stop()
+
+
+func set_damage_modifier(modifier: DamageModifier) -> void:
+	_damage_modifier = modifier
+
 
 func _on_fire_tick() -> void:
 	if not _shooting:
@@ -54,10 +56,10 @@ func _on_fire_tick() -> void:
 		return
 	_spawn_bullet()
 
-func _spawn_bullet() -> void:
-	var b: Area2D = bullet_template.duplicate() as Area2D
 
-	# enable copy
+func _spawn_bullet() -> void:
+	var b := bullet_template.duplicate() as Area2D
+
 	b.visible = true
 	b.set_process(true)
 	b.set_physics_process(true)
@@ -65,29 +67,31 @@ func _spawn_bullet() -> void:
 	var cs := b.get_node_or_null("CollisionShape2D") as CollisionShape2D
 	if cs: cs.disabled = false
 
-	# IMPORTANT: parent to Bullets (world), not to the gun/player
-	var bullets_root := _get_bullets_root()
-	bullets_root.add_child(b)
-	b.global_position = muzzle.global_position
+	_get_bullets_root().add_child(b)
 
-
-	# place in world coords
+	# Position and rotation from muzzle — bullet will fly along its local -Y axis
 	b.global_position = muzzle.global_position
 	b.global_rotation = muzzle.global_rotation
 
 	if b is Bullet:
-		var bb := b as Bullet
-		bb.damage = damage
-		bb.speed = bullet_speed
-		
+		(b as Bullet).damage = _modified_damage()
+		(b as Bullet).speed  = bullet_speed
+
 
 func _get_bullets_root() -> Node2D:
-	# текущая запущенная сцена (Flight)
+	if is_instance_valid(_bullets_root):
+		return _bullets_root
 	var root := get_tree().current_scene
 	var bullets := root.get_node_or_null("Bullets") as Node2D
 	if bullets == null:
-		# на всякий случай создадим
 		bullets = Node2D.new()
 		bullets.name = "Bullets"
 		root.add_child(bullets)
-	return bullets
+	_bullets_root = bullets
+	return _bullets_root
+
+
+func _modified_damage() -> int:
+	if _damage_modifier == null:
+		return damage
+	return _damage_modifier.apply(damage)

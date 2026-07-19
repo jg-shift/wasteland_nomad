@@ -1,0 +1,94 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scenes/demo_Scene/score_display.gd" id="1_score"]
+[ext_resource type="Script" path="res://scenes/demo_Scene/FlightProgressBar.gd" id="2_progress"]
+[ext_resource type="Script" path="res://scenes/demo_Scene/health_bar_container.gd" id="3_health"]
+
+[sub_resource type="SystemFont" id="SystemFont_score"]
+font_names = PackedStringArray("Cascadia Mono", "Consolas", "Courier New")
+font_weight = 700
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_health_background"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+shadow_size = 10
+shadow_offset = Vector2(-10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_health_fill"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1.2513996e-06, 0.5610218, 0.14159095, 0.4)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[node name="FlightHUD" type="CanvasLayer"]
+layer = 10
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -260.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 80.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 0.48, 0.05, 1)
+theme_override_fonts/font = SubResource("SystemFont_score")
+theme_override_font_sizes/font_size = 38
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("1_score")
+
+[node name="FlightProgressBar" type="ProgressBar" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+script = ExtResource("2_progress")
+
+[node name="HealthBarContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_health")
+
+[node name="HealthBar" type="ProgressBar" parent="HealthBarContainer"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 17.0
+offset_right = 375.0
+offset_bottom = 41.0
+theme_override_styles/background = SubResource("StyleBox_health_background")
+theme_override_styles/fill = SubResource("StyleBox_health_fill")
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="HealthBarContainer"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 13.0
+offset_right = 248.0
+offset_bottom = 71.0
+theme_override_colors/font_color = Color(0.029054279, 0.119640656, 0.07791791, 1)
+theme_override_font_sizes/font_size = 24
+text = "100 / 100"

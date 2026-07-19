@@ -1,30 +1,30 @@
 [gd_scene format=3 uid="uid://bk54mq8a7f0ji"]
 
-[ext_resource type="Texture2D" uid="uid://557miiwhhihp" path="res://img/beta_craft.png" id="1_hcro5"]
 [ext_resource type="Script" uid="uid://behxu0a7f1tnx" path="res://scenes/demo_Scene/player.gd" id="1_kr0to"]
 [ext_resource type="PackedScene" uid="uid://bh74rah1o46rj" path="res://scenes/demo_Scene/weapon_machinegun_simple.tscn" id="2_6nmd2"]
+[ext_resource type="Texture2D" uid="uid://k6ikd8kc3xuk" path="res://img/beta_craft2.png" id="3_kr0to"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_suvfl"]
 radius = 14.0
-height = 112.0
+height = 92.0
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1243444185]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1243444185 groups=["player"]]
 script = ExtResource("1_kr0to")
 
 [node name="WeaponSlots" type="Node2D" parent="." unique_id=1605810362]
 
 [node name="weapon_machinegun_simple" parent="WeaponSlots" unique_id=502748289 instance=ExtResource("2_6nmd2")]
-position = Vector2(-30, -40)
+position = Vector2(-32, -12)
 
 [node name="weapon_machinegun_simple2" parent="WeaponSlots" unique_id=1038260176 instance=ExtResource("2_6nmd2")]
-position = Vector2(28, -42)
+position = Vector2(31, -12)
 
 [node name="BodyHull" type="Node2D" parent="." unique_id=508274339]
 
 [node name="Sprite2D" type="Sprite2D" parent="BodyHull" unique_id=1463832339]
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_hcro5")
+texture = ExtResource("3_kr0to")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1644526419]
-position = Vector2(-1, -6)
+position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_suvfl")

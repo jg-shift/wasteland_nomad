@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://gameplay/vehicles/crashed_craft.gd" id="1_craft"]
+
+[sub_resource type="RectangleShape2D" id="Rectangle_craft"]
+size = Vector2(150, 72)
+
+[sub_resource type="CircleShape2D" id="Circle_interaction"]
+radius = 115.0
+
+[node name="CrashedCraft" type="Node2D" groups=["crashed_craft"]]
+script = ExtResource("1_craft")
+
+[node name="CraftVisual" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-75, 30, -55, -32, 0, -48, 62, -25, 78, 30, 20, 40)
+color = Color(0.3, 0.44, 0.36, 1)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("Rectangle_craft")
+
+[node name="RepairInteraction" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RepairInteraction"]
+shape = SubResource("Circle_interaction")
+
+[node name="ResumeFlightInteraction" type="Area2D" parent="."]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResumeFlightInteraction"]
+shape = SubResource("Circle_interaction")
+
+[node name="RepairProgressVisual" type="Label" parent="."]
+offset_left = -85.0
+offset_top = -90.0
+offset_right = 85.0
+offset_bottom = -60.0
+text = "CRAFT DISABLED"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -1,0 +1,11 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/demo_Scene/music_controller.gd" id="1_controller"]
+[ext_resource type="AudioStream" path="res://music/swarm_in_wires.mp3" id="2_track_a"]
+[ext_resource type="AudioStream" path="res://music/swarm_in_wires_1.mp3" id="3_track_b"]
+[ext_resource type="AudioStream" path="res://music/swarm_in_wires_2.mp3" id="4_track_c"]
+[ext_resource type="AudioStream" path="res://music/swarm_in_wires_3.mp3" id="5_track_d"]
+
+[node name="MusicController" type="AudioStreamPlayer2D"]
+script = ExtResource("1_controller")
+tracks = Array[AudioStream]([ExtResource("2_track_a"), ExtResource("3_track_b"), ExtResource("4_track_c"), ExtResource("5_track_d")])

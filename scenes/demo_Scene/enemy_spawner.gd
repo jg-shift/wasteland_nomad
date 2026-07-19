@@ -1,26 +1,27 @@
 extends Node2D
 class_name EnemySpawner
 
-@export var enemy_template: Enemy
+signal enemy_died(victory_points: int)
+signal collision_damage_requested(amount: int)
+
+## Drag the enemy .tscn file here in the Inspector
+@export var enemy_scene: PackedScene
 @export var player: Node2D
 
-@export var spawn_interval_sec: float = 0.5
+## Spawn interval at minimum flight_speed
+@export var spawn_interval_sec: float = 1.5
+## Lower clamp for very high spawn multipliers
+@export var spawn_interval_min_sec: float = 0.2
+
 @export var spawn_x_padding: float = 24.0
 @export var spawn_y_offset: float = 120.0
-
-# вариативность ±20%
-@export var min_var: float = 0.5
-@export var max_var: float = 1.0
-
-# “около 1” = прямой полёт
-@export var straight_deadzone: float = 0.75
 
 var _timer: Timer
 
 
 func _ready() -> void:
-	if enemy_template == null:
-		push_error("EnemySpawner: assign enemy_template in Inspector")
+	if enemy_scene == null:
+		push_error("EnemySpawner: assign enemy_scene in Inspector")
 		set_process(false)
 		return
 	if player == null:
@@ -28,62 +29,47 @@ func _ready() -> void:
 		set_process(false)
 		return
 
-	# шаблон отключаем
-	enemy_template.freeze = true
-	enemy_template.visible = false
-	enemy_template.set_physics_process(false)
-	enemy_template.set_process(false)
-	enemy_template.gravity_scale = 0.0
-	var cs := enemy_template.get_node_or_null("CollisionShape2D") as CollisionShape2D
-	if cs: cs.disabled = true
-
 	_timer = Timer.new()
 	_timer.one_shot = false
-	_timer.wait_time = spawn_interval_sec
+	_timer.wait_time = _current_interval()
 	add_child(_timer)
 	_timer.timeout.connect(_spawn_one)
 	_timer.start()
 
 
+func _process(_delta: float) -> void:
+	_timer.wait_time = _current_interval()
+
+
+func _current_interval() -> float:
+	var base_interval := lerpf(spawn_interval_sec, spawn_interval_min_sec, WorldUtils.BASE_FLIGHT_SPEED)
+	var spawn_multiplier := maxf(0.001, WorldUtils.flight_speed_multiplier)
+	return maxf(spawn_interval_min_sec, base_interval / spawn_multiplier)
+
+
 func _spawn_one() -> void:
-	var rect := _world_view_rect()
+	var rect := WorldUtils.world_view_rect(get_viewport())
 
-	# позиция спавна: чуть выше экрана
 	var x := randf_range(rect.position.x + spawn_x_padding, rect.position.x + rect.size.x - spawn_x_padding)
-	var y := rect.position.y - spawn_y_offset
+	var y  := rect.position.y - spawn_y_offset
 
-	# вариативность
-	var scale_var := randf_range(min_var, max_var)
-	var sat_var := randf_range(min_var, max_var)
-	var behavior := randf_range(min_var, max_var)
+	var size_t := randf()
 
-	# если очень близко к 1 — делаем ровно 1 (строго прямо)
-	if absf(behavior - 1.0) <= straight_deadzone:
-		behavior = 1.0
+	var e := enemy_scene.instantiate() as BaseEnemy
+	if e == null:
+		push_error("EnemySpawner: enemy_scene root is not a BaseEnemy node")
+		return
 
-	# создаём копию
-	var e := enemy_template.duplicate() as Enemy
 	get_parent().add_child(e)
-
 	e.global_position = Vector2(x, y)
-
-	# включаем всё
-	e.visible = true
-	e.freeze = false
-	e.set_physics_process(true)
-	e.set_process(true)
-	e.gravity_scale = 0.0
-
-	var cs := e.get_node_or_null("CollisionShape2D") as CollisionShape2D
-	if cs: cs.disabled = false
-
-	# передаём параметры
-	e.setup(player, behavior, scale_var, sat_var)
+	e.died.connect(_on_enemy_died)
+	e.collision_damage_requested.connect(_on_collision_damage_requested)
+	e.setup(player, size_t)
 
 
-func _world_view_rect() -> Rect2:
-	var vp_rect := get_viewport().get_visible_rect()
-	var canvas_xform := get_viewport().get_canvas_transform()
-	var tl := canvas_xform.affine_inverse() * vp_rect.position
-	var br := canvas_xform.affine_inverse() * (vp_rect.position + vp_rect.size)
-	return Rect2(tl, br - tl)
+func _on_enemy_died(victory_points: int) -> void:
+	enemy_died.emit(victory_points)
+
+
+func _on_collision_damage_requested(amount: int) -> void:
+	collision_damage_requested.emit(amount)

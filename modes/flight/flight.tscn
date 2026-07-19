@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://bvyxsxkdwx0nt"]
+
+[ext_resource type="Script" path="res://modes/flight/flight.gd" id="1_shell"]
+[ext_resource type="PackedScene" path="res://modes/flight/world/terrain_scroller.tscn" id="2_terrain"]
+[ext_resource type="PackedScene" path="res://modes/flight/world/flight_music.tscn" id="3_music"]
+[ext_resource type="PackedScene" path="res://scenes/demo_Scene/player.tscn" id="4_player"]
+[ext_resource type="PackedScene" path="res://scenes/demo_Scene/beta_enemy.tscn" id="5_enemy"]
+[ext_resource type="Script" path="res://scenes/demo_Scene/enemy_spawner.gd" id="6_spawner"]
+[ext_resource type="Script" path="res://scenes/demo_Scene/flight_settings.gd" id="7_settings"]
+[ext_resource type="Script" path="res://scenes/demo_Scene/flight_state_bindings.gd" id="8_bindings"]
+[ext_resource type="PackedScene" path="res://modes/flight/ui/flight_hud.tscn" id="9_hud"]
+
+[node name="Flight" type="Node2D"]
+script = ExtResource("1_shell")
+
+[node name="FlightController" type="Node" parent="."]
+
+[node name="FlightDirector" type="Node" parent="."]
+
+[node name="DirectorContainer" type="Node" parent="."]
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="TerrainContainer" type="Node2D" parent="World"]
+
+[node name="TerrainScroller" parent="World/TerrainContainer" instance=ExtResource("2_terrain")]
+
+[node name="MusicController" parent="World" instance=ExtResource("3_music")]
+
+[node name="EncounterContainer" type="Node2D" parent="World"]
+
+[node name="EnemySpawner" type="Node2D" parent="World/EncounterContainer" node_paths=PackedStringArray("player")]
+script = ExtResource("6_spawner")
+enemy_scene = ExtResource("5_enemy")
+player = NodePath("../../../Actors/PlayerCraft")
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="PlayerCraft" parent="Actors" instance=ExtResource("4_player")]
+position = Vector2(713, 688)
+
+[node name="EnemyContainer" type="Node2D" parent="Actors"]
+
+[node name="Bullets" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(720, 444)
+
+[node name="FlightSettings" type="Node" parent="."]
+script = ExtResource("7_settings")
+
+[node name="FlightStateBindings" type="Node" parent="." node_paths=PackedStringArray("enemy_spawner", "player")]
+script = ExtResource("8_bindings")
+enemy_spawner = NodePath("../World/EncounterContainer/EnemySpawner")
+player = NodePath("../Actors/PlayerCraft")
+
+[node name="UI" parent="." instance=ExtResource("9_hud")]

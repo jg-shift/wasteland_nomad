@@ -1,0 +1,94 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://modes/hub/hub.gd" id="1_hub"]
+[ext_resource type="PackedScene" path="res://modes/walk/actors/player_character.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://modes/hub/locations/first_hub.tscn" id="3_location"]
+
+[sub_resource type="StyleBoxFlat" id="Style_activity"]
+bg_color = Color(0.03, 0.04, 0.035, 0.92)
+
+[node name="Hub" type="Node2D"]
+script = ExtResource("1_hub")
+initial_location = ExtResource("3_location")
+
+[node name="HubController" type="Node" parent="."]
+
+[node name="LocationContainer" type="Node2D" parent="."]
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="PlayerSpawnContainer" type="Node2D" parent="Actors"]
+
+[node name="PlayerCharacter" parent="Actors" instance=ExtResource("2_player")]
+position = Vector2(720, 680)
+
+[node name="NPCContainer" type="Node2D" parent="Actors"]
+
+[node name="ServiceContainer" type="Node" parent="."]
+
+[node name="TradeService" type="Node" parent="ServiceContainer"]
+
+[node name="CraftingService" type="Node" parent="ServiceContainer"]
+
+[node name="DialogueService" type="Node" parent="ServiceContainer"]
+
+[node name="HackingService" type="Node" parent="ServiceContainer"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="HubHUD" type="Control" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LocationName" type="Label" parent="UI/HubHUD"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 420.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 28
+text = "FIRST HUB"
+
+[node name="ObjectiveDisplay" type="Label" parent="UI/HubHUD"]
+offset_left = 20.0
+offset_top = 70.0
+offset_right = 520.0
+offset_bottom = 105.0
+text = "OBJECTIVE: Find the navigation terminal"
+
+[node name="InteractionPrompt" type="Label" parent="UI/HubHUD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -80.0
+offset_right = 180.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "PRESS INTERACT"
+horizontal_alignment = 1
+
+[node name="ActivityPanelContainer" type="PanelContainer" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -260.0
+offset_right = 360.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("Style_activity")

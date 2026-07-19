@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://modes/flight/directors/prologue_director.gd" id="1_director"]
+
+[node name="PrologueDirector" type="Node"]
+script = ExtResource("1_director")
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CrashTimer" type="Timer" parent="."]
+one_shot = true

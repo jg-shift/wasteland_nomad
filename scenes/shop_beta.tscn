@@ -1,0 +1,257 @@
+[gd_scene format=3 uid="uid://u3n0vhwr40o0"]
+
+[ext_resource type="Texture2D" uid="uid://cufibnkxbc48h" path="res://img/raw/Lucid_Origin_Create_a_STRICT_pixelperfect_sprite_for_Players_a_0_3f4fc1d6-504c-4de4-bd59-7f5607398227.jpg" id="1_ponun"]
+[ext_resource type="PackedScene" uid="uid://bk54mq8a7f0ji" path="res://scenes/demo_Scene/player.tscn" id="2_ponun"]
+[ext_resource type="Texture2D" uid="uid://badf3oh1mhcla" path="res://img/workshop_shop_buttons_atlas.png" id="3_fhd5s"]
+[ext_resource type="Script" uid="uid://4827vofddg6e" path="res://scenes/demo_Scene/score_display.gd" id="4_a63wx"]
+[ext_resource type="Script" uid="uid://deqiap88g8r1q" path="res://scenes/shop_beta.gd" id="4_shop"]
+[ext_resource type="Script" uid="uid://dm5aqjbfvq1ad" path="res://scenes/demo_Scene/health_bar_container.gd" id="6_jcp8k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mof5u"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+shadow_size = 10
+shadow_offset = Vector2(-10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ds3la"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1.2513996e-06, 0.5610218, 0.14159095, 0.4)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[sub_resource type="SystemFont" id="SystemFont_fydve"]
+font_names = PackedStringArray("Cascadia Mono", "Consolas", "Courier New")
+font_weight = 700
+subpixel_positioning = 0
+
+[sub_resource type="SystemFont" id="SystemFont_riqys"]
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_bhunq"]
+font = SubResource("SystemFont_riqys")
+font_size = 100
+font_color = Color(0.42917627, 0.2754029, 0.17720476, 1)
+outline_size = 9
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajbtk"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(4, 4, 187, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_riqys"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(388, 6, 187, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a63wx"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(578, 2, 188, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e35bm"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(196, 4, 187, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fydve"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(3, 43, 187, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jcp8k"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(387, 45, 187, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25x8w"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(579, 41, 188, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4uvd"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(195, 44, 188, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mof5u"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(3, 83, 187, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ds3la"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(386, 86, 187, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6kuj"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(580, 82, 188, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hh1gh"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(196, 84, 187, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2q2pq"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(3, 123, 187, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc7ls"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(387, 124, 187, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rej7r"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(579, 122, 188, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lu2i"]
+atlas = ExtResource("3_fhd5s")
+region = Rect2(196, 123, 188, 36)
+
+[node name="ShopBeta" type="Control" unique_id=396052245]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_shop")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1780809707]
+position = Vector2(713, 337)
+texture = ExtResource("1_ponun")
+
+[node name="CharacterBody2D_SHADOW" parent="Sprite2D" unique_id=1243444185 instance=ExtResource("2_ponun")]
+modulate = Color(0, 0.019607844, 0.003921569, 0.6745098)
+position = Vector2(46.000004, 316)
+rotation = 0.41967735
+scale = Vector2(4.000001, 4.000001)
+script = null
+
+[node name="CharacterBody2D2" parent="Sprite2D" unique_id=234449776 instance=ExtResource("2_ponun")]
+position = Vector2(33.000004, 273)
+rotation = 0.41967735
+scale = Vector2(4.000001, 4.000001)
+script = null
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1752223757]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HealthBarContainer" type="Control" parent="MarginContainer" unique_id=1862638894]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("6_jcp8k")
+
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/HealthBarContainer" unique_id=836339853]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 17.0
+offset_right = 375.0
+offset_bottom = 41.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_mof5u")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ds3la")
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/HealthBarContainer" unique_id=1582140132]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 13.0
+offset_right = 248.0
+offset_bottom = 71.0
+theme_override_colors/font_color = Color(0.029054279, 0.119640656, 0.07791791, 1)
+theme_override_font_sizes/font_size = 24
+text = "100 / 100"
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer" unique_id=171890598]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 0.48, 0.05, 1)
+theme_override_fonts/font = SubResource("SystemFont_fydve")
+theme_override_font_sizes/font_size = 38
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("4_a63wx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2135871248]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer" unique_id=1090334538]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CenterContainer" unique_id=766540892]
+layout_mode = 2
+text = "workshop"
+label_settings = SubResource("LabelSettings_bhunq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=426395563]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1499491273]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Repair" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1464318673]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = SubResource("AtlasTexture_ajbtk")
+texture_pressed = SubResource("AtlasTexture_riqys")
+texture_hover = SubResource("AtlasTexture_a63wx")
+texture_disabled = SubResource("AtlasTexture_e35bm")
+stretch_mode = 0
+
+[node name="AddDamage" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1685842340]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource("AtlasTexture_fydve")
+texture_pressed = SubResource("AtlasTexture_jcp8k")
+texture_hover = SubResource("AtlasTexture_25x8w")
+texture_disabled = SubResource("AtlasTexture_l4uvd")
+stretch_mode = 0
+
+[node name="AddHealth" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1291438513]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = SubResource("AtlasTexture_mof5u")
+texture_pressed = SubResource("AtlasTexture_ds3la")
+texture_hover = SubResource("AtlasTexture_e6kuj")
+texture_disabled = SubResource("AtlasTexture_hh1gh")
+stretch_mode = 0
+
+[node name="Continue" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=979069715]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = SubResource("AtlasTexture_2q2pq")
+texture_pressed = SubResource("AtlasTexture_vc7ls")
+texture_hover = SubResource("AtlasTexture_rej7r")
+texture_disabled = SubResource("AtlasTexture_3lu2i")
+stretch_mode = 0
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=843360224]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer/Control" unique_id=2051801640]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

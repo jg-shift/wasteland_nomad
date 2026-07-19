@@ -15,14 +15,25 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Toxic Wasteland Nomad"
-run/main_scene="uid://v7ghkf5svxac"
-config/features=PackedStringArray("4.6", "GL Compatibility")
+run/main_scene="uid://c8lf0f3vmgyak"
+config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+WorldUtils="*uid://d34q715qkre34"
+GameState="*uid://cocoo848svsjn"
+SceneRouter="*res://autoload/SceneRouter.gd"
 
 [display]
 
 window/size/viewport_width=1440
 window/size/viewport_height=900
+window/stretch/mode="viewport"
+
+[gui]
+
+theme/custom="uid://nrfaafw621nd"
 
 [input]
 

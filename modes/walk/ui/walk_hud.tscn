@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://modes/walk/ui/walk_hud.gd" id="1_hud"]
+
+[node name="WalkHUD" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_hud")
+
+[node name="Root" type="Control" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopLeft" type="MarginContainer" parent="Root"]
+layout_mode = 1
+offset_right = 420.0
+offset_bottom = 180.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="Content" type="VBoxContainer" parent="Root/TopLeft"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HealthDisplay" type="ProgressBar" parent="Root/TopLeft/Content"]
+custom_minimum_size = Vector2(360, 22)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="ObjectiveDisplay" type="Label" parent="Root/TopLeft/Content"]
+layout_mode = 2
+text = "OBJECTIVE: Inspect the crashed craft"
+
+[node name="RepairMaterialDisplay" type="Label" parent="Root/TopLeft/Content"]
+layout_mode = 2
+text = "REPAIR PARTS: 0 / 3"
+
+[node name="BottomCenter" type="CenterContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="InteractionPrompt" type="Label" parent="Root/BottomCenter"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "PRESS INTERACT"
+
+[node name="Center" type="CenterContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TutorialMessage" type="Label" parent="Root/Center"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = ""
