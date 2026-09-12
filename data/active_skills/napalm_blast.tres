@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ActiveSkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://domain/skills/active_skill_definition.gd" id="1_definition"]
+
+[resource]
+script = ExtResource("1_definition")
+skill_id = &"napalm_blast"
+display_name = "Напалмовый залп"
+description = "Конус огня перед кораблём: мгновенный урон и поджигание насекомых в зоне."
+branch = 0
+kind = &"napalm_blast"
+duration_sec = 3.0
+cooldown_sec = 15.0

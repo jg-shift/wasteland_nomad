@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="PerkDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://domain/skills/perk_definition.gd" id="1_definition"]
+[ext_resource type="Script" path="res://domain/skills/perk_effect.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Resource_repair_effect"]
+script = ExtResource("2_effect")
+stat = &"repair_speed"
+operation = 1
+value = 0.7
+
+[resource]
+script = ExtResource("1_definition")
+perk_id = &"field_repair"
+display_name = "Полевой ремонт"
+description = "Отработанная методика полевого ремонта: ремонт корабля на месте крушения занимает 70% исходного времени."
+branch = 1
+cost_credits = 250
+cost_items = {}
+effects = Array[ExtResource("2_effect")]([SubResource("Resource_repair_effect")])

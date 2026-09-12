@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bvyxsxkdwx0nt"]
+[gd_scene load_steps=13 format=3 uid="uid://bvyxsxkdwx0nt"]
 
 [ext_resource type="Script" path="res://modes/flight/flight.gd" id="1_shell"]
 [ext_resource type="PackedScene" path="res://modes/flight/world/terrain_scroller.tscn" id="2_terrain"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://modes/flight/ui/flight_hud.tscn" id="9_hud"]
 [ext_resource type="Script" path="res://modes/flight/adapters/flight_journey_adapter.gd" id="10_journey_adapter"]
 [ext_resource type="Script" path="res://modes/flight/controllers/flight_flow_controller.gd" id="11_flow"]
+[ext_resource type="Script" path="res://modes/flight/controllers/flight_active_skill_controller.gd" id="12_active_skill"]
 
 [node name="Flight" type="Node2D"]
 script = ExtResource("1_shell")
@@ -57,6 +58,9 @@ script = ExtResource("10_journey_adapter")
 [node name="FlightFlowController" type="Node" parent="." node_paths=PackedStringArray("flight_settings")]
 script = ExtResource("11_flow")
 flight_settings = NodePath("../FlightSettings")
+
+[node name="FlightActiveSkillController" type="Node" parent="."]
+script = ExtResource("12_active_skill")
 
 [node name="FlightStateBindings" type="Node" parent="." node_paths=PackedStringArray("enemy_spawner", "player")]
 script = ExtResource("8_bindings")

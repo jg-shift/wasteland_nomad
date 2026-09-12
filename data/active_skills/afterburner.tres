@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ActiveSkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://domain/skills/active_skill_definition.gd" id="1_definition"]
+
+[resource]
+script = ExtResource("1_definition")
+skill_id = &"afterburner"
+display_name = "Форсаж"
+description = "Кратковременное ускорение и рывок уклонения — выход из-под атаки роя."
+branch = 0
+kind = &"afterburner"
+duration_sec = 2.0
+cooldown_sec = 10.0

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="PerkDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://domain/skills/perk_definition.gd" id="1_definition"]
+[ext_resource type="Script" path="res://domain/skills/perk_effect.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Resource_fuel_effect"]
+script = ExtResource("2_effect")
+stat = &"fuel_burn"
+operation = 1
+value = 0.85
+
+[resource]
+script = ExtResource("1_definition")
+perk_id = &"fuel_economizer"
+display_name = "Экономайзер топлива"
+description = "Перенастроенная топливная смесь: расход топлива снижен на 15%."
+branch = 0
+cost_credits = 250
+cost_items = {}
+effects = Array[ExtResource("2_effect")]([SubResource("Resource_fuel_effect")])

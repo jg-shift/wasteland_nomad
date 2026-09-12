@@ -14,9 +14,13 @@ const DEFAULT_BASE_SCROLL_SPEED: float = 220.0
 
 var _base_scroll_speed: float = DEFAULT_BASE_SCROLL_SPEED
 
+## Temporary boost from active skills (e.g. afterburner). Independent of
+## flight_speed_multiplier, which FlightSettings rewrites every frame.
+var _flight_boost_multiplier: float = 1.0
+
 ## Returns current background scroll speed in px/sec.
 func scroll_speed() -> float:
-	return _base_scroll_speed * flight_speed_multiplier
+	return _base_scroll_speed * flight_speed_multiplier * _flight_boost_multiplier
 
 
 ## Configures the initial speed in tile-relative units.
@@ -54,6 +58,14 @@ func set_flight_speed_multiplier(value: float) -> void:
 		flight_speed_multiplier
 	)
 	flight_speed = lerpf(BASE_FLIGHT_SPEED, 1.0, clampf(intensity_t, 0.0, 1.0))
+
+func set_flight_boost_multiplier(value: float) -> void:
+	_flight_boost_multiplier = maxf(0.0, value)
+
+
+func get_flight_boost_multiplier() -> float:
+	return _flight_boost_multiplier
+
 
 ## Returns the visible world rect in global canvas coordinates.
 ## Works correctly whether or not a Camera2D is active.
