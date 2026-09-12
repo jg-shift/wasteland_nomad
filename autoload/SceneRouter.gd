@@ -2,6 +2,8 @@ extends Node
 ## Centralizes scene construction and transitions.
 
 const FLIGHT_SCENE: PackedScene = preload("res://modes/flight/flight.tscn")
+const HUB_SCENE_PATH: String = "res://modes/hub/hub.tscn"
+const WALK_SCENE_PATH: String = "res://modes/walk/walk.tscn"
 
 var _transition_pending: bool = false
 
@@ -35,6 +37,14 @@ func change_scene_to_file(scene_path: String) -> void:
 
 	_transition_pending = true
 	Callable(self, "_perform_change_scene_to_file").call_deferred(scene_path)
+
+
+func open_walk() -> void:
+	change_scene_to_file(WALK_SCENE_PATH)
+
+
+func open_hub() -> void:
+	change_scene_to_file(HUB_SCENE_PATH)
 
 
 func _perform_change_scene_to_file(scene_path: String) -> void:

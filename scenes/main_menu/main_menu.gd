@@ -27,7 +27,8 @@ func _on_start_pressed() -> void:
 
 
 func _start_game(flight_duration_sec: float = 120.0, final_speed_multiplier: float = 3.0) -> void:
-	GameState.reset_craft_hp()
+	if not PrologueSessionBootstrapper.start_new_game():
+		return
 	SceneRouter.start_flight(flight_duration_sec, final_speed_multiplier)
 
 

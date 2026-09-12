@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LocationDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://domain/world/location_definition.gd" id="1_definition"]
+[ext_resource type="PackedScene" path="res://modes/walk/levels/crash_sites/tutorial_crash_site.tscn" id="2_scene"]
+
+[resource]
+script = ExtResource("1_definition")
+location_id = &"tutorial_crash_site"
+display_name = "Tutorial Crash Site"
+map_coordinates = Vector2(-10, 0)
+location_type = 2
+is_travel_destination = false
+content_scene = ExtResource("2_scene")

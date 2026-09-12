@@ -14,7 +14,11 @@ class PhysicsTransitionTrigger:
 
 
 func _initialize() -> void:
-	var flight := load("res://scenes/demo_Scene/node_2d.tscn").instantiate()
+	var flight_scene := load(
+		"res://scenes/demo_Scene/node_2d.tscn"
+	) as PackedScene
+	assert(flight_scene != null)
+	var flight: Node = flight_scene.instantiate()
 	root.add_child(flight)
 	current_scene = flight
 	root.add_child(PhysicsTransitionTrigger.new())

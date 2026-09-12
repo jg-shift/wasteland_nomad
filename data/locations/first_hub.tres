@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LocationDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://domain/world/location_definition.gd" id="1_definition"]
+[ext_resource type="PackedScene" path="res://modes/hub/locations/first_hub.tscn" id="2_scene"]
+
+[resource]
+script = ExtResource("1_definition")
+location_id = &"first_hub"
+display_name = "First Hub"
+map_coordinates = Vector2(0, 0)
+location_type = 0
+is_travel_destination = true
+content_scene = ExtResource("2_scene")

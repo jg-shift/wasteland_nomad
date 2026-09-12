@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="PackedScene" path="res://gameplay/vehicles/crashed_craft.tscn" id="1_craft"]
+[ext_resource type="Script" path="res://modes/walk/controllers/crash_site_controller.gd" id="2_controller"]
 
 [sub_resource type="RectangleShape2D" id="Boundary_horizontal"]
 size = Vector2(1600, 40)
@@ -74,6 +75,10 @@ position = Vector2(520, 500)
 
 [node name="CrashedCraft" parent="." instance=ExtResource("1_craft")]
 position = Vector2(520, 500)
+
+[node name="CrashSiteController" type="Node" parent="." node_paths=PackedStringArray("crashed_craft")]
+script = ExtResource("2_controller")
+crashed_craft = NodePath("../CrashedCraft")
 
 [node name="RepairResources" type="Node2D" parent="."]
 

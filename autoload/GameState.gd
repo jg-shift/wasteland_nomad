@@ -22,27 +22,124 @@ enum GameMode {
 }
 
 var game_mode := GameModeState.new(GameMode.HUB)
-var player_health := HealthState.new(100)
-var craft_health := HealthState.new(100)
-var craft_upgrades := CraftUpgradeState.new()
-var score := ScoreState.new()
 var flight_progress := FlightProgressState.new()
-var skills := SkillBook.new()
+var _legacy_score := ScoreState.new()
+
+var score: ScoreState:
+	get:
+		if GameSession.active_expedition != null:
+			return GameSession.active_expedition.score
+		return _legacy_score
+
+var player_health: HealthState:
+	get:
+		return GameSession.player.health
+
+var craft_health: HealthState:
+	get:
+		return GameSession.craft.health
+
+var craft_upgrades: CraftUpgradeState:
+	get:
+		return GameSession.craft.upgrades
+
+var skills: SkillBook:
+	get:
+		return GameSession.profile.skills
+
+var _bound_player_health: HealthState
+var _bound_craft_health: HealthState
+var _bound_craft_upgrades: CraftUpgradeState
+var _bound_skills: SkillBook
+var _bound_score: ScoreState
 
 
 func _ready() -> void:
+	GameSession.state_models_replaced.connect(_on_session_models_replaced)
+	GameSession.expedition_started.connect(_on_expedition_changed)
+	GameSession.expedition_cleared.connect(_on_expedition_changed)
 	game_mode.changed.connect(_on_game_mode_changed)
-	player_health.changed.connect(_on_player_hp_changed)
-	player_health.damage_taken.connect(_on_player_damage_taken)
-	player_health.depleted.connect(_on_player_died)
-	craft_health.changed.connect(_on_craft_hp_changed)
-	craft_health.damage_taken.connect(_on_craft_damage_taken)
-	craft_health.depleted.connect(_on_craft_destroyed)
-	craft_upgrades.weapon_damage_changed.connect(_on_craft_weapon_damage_changed)
-	score.changed.connect(_on_points_changed)
 	flight_progress.changed.connect(_on_flight_progress_changed)
-	skills.unlocked.connect(_on_skill_unlocked)
-	skills.upgraded.connect(_on_skill_upgraded)
+	_bind_session_models()
+
+
+func _bind_session_models() -> void:
+	_unbind_session_models()
+
+	_bound_player_health = player_health
+	_bound_craft_health = craft_health
+	_bound_craft_upgrades = craft_upgrades
+	_bound_skills = skills
+	_bound_score = score
+
+	_bound_player_health.changed.connect(_on_player_hp_changed)
+	_bound_player_health.damage_taken.connect(_on_player_damage_taken)
+	_bound_player_health.depleted.connect(_on_player_died)
+	_bound_craft_health.changed.connect(_on_craft_hp_changed)
+	_bound_craft_health.damage_taken.connect(_on_craft_damage_taken)
+	_bound_craft_health.depleted.connect(_on_craft_destroyed)
+	_bound_craft_upgrades.weapon_damage_changed.connect(_on_craft_weapon_damage_changed)
+	_bound_skills.unlocked.connect(_on_skill_unlocked)
+	_bound_skills.upgraded.connect(_on_skill_upgraded)
+	_bound_score.changed.connect(_on_points_changed)
+
+
+func _unbind_session_models() -> void:
+	if _bound_player_health != null:
+		if _bound_player_health.changed.is_connected(_on_player_hp_changed):
+			_bound_player_health.changed.disconnect(_on_player_hp_changed)
+		if _bound_player_health.damage_taken.is_connected(_on_player_damage_taken):
+			_bound_player_health.damage_taken.disconnect(_on_player_damage_taken)
+		if _bound_player_health.depleted.is_connected(_on_player_died):
+			_bound_player_health.depleted.disconnect(_on_player_died)
+
+	if _bound_craft_health != null:
+		if _bound_craft_health.changed.is_connected(_on_craft_hp_changed):
+			_bound_craft_health.changed.disconnect(_on_craft_hp_changed)
+		if _bound_craft_health.damage_taken.is_connected(_on_craft_damage_taken):
+			_bound_craft_health.damage_taken.disconnect(_on_craft_damage_taken)
+		if _bound_craft_health.depleted.is_connected(_on_craft_destroyed):
+			_bound_craft_health.depleted.disconnect(_on_craft_destroyed)
+
+	if (
+		_bound_craft_upgrades != null
+		and _bound_craft_upgrades.weapon_damage_changed.is_connected(
+			_on_craft_weapon_damage_changed
+		)
+	):
+		_bound_craft_upgrades.weapon_damage_changed.disconnect(
+			_on_craft_weapon_damage_changed
+		)
+
+	if _bound_skills != null:
+		if _bound_skills.unlocked.is_connected(_on_skill_unlocked):
+			_bound_skills.unlocked.disconnect(_on_skill_unlocked)
+		if _bound_skills.upgraded.is_connected(_on_skill_upgraded):
+			_bound_skills.upgraded.disconnect(_on_skill_upgraded)
+
+	if _bound_score != null and _bound_score.changed.is_connected(_on_points_changed):
+		_bound_score.changed.disconnect(_on_points_changed)
+
+
+func _on_session_models_replaced() -> void:
+	var previous_points := (
+		_bound_score.get_points() if _bound_score != null else get_points()
+	)
+	_bind_session_models()
+	if get_points() != previous_points:
+		points_changed.emit(get_points())
+
+
+func _on_expedition_changed(_expedition: ExpeditionState) -> void:
+	var previous_points := (
+		_bound_score.get_points() if _bound_score != null else get_points()
+	)
+	if _bound_score != null and _bound_score.changed.is_connected(_on_points_changed):
+		_bound_score.changed.disconnect(_on_points_changed)
+	_bound_score = score
+	_bound_score.changed.connect(_on_points_changed)
+	if get_points() != previous_points:
+		points_changed.emit(get_points())
 
 
 func get_game_mode() -> int:

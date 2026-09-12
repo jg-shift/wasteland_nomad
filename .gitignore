@@ -2,5 +2,9 @@
 .godot/
 /android/
 
+# Export/build artifacts (regenerable, too large for GitHub)
+build/
+__pycache__/
+
 # Local Claude Code guidance
 CLAUDE.md

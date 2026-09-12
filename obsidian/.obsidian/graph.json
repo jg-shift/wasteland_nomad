@@ -1,0 +1,37 @@
+{
+  "collapse-filter": false,
+  "search": "",
+  "showTags": true,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": false,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "Поселения",
+      "color": {
+        "a": 1,
+        "rgb": 14701138
+      }
+    },
+    {
+      "query": "tag:#фракции  ",
+      "color": {
+        "a": 1,
+        "rgb": 14725458
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": false,
+  "textFadeMultiplier": -0.7,
+  "nodeSizeMultiplier": 1.0347485814909,
+  "lineSizeMultiplier": 1.34153785951868,
+  "collapse-forces": false,
+  "centerStrength": 0.491724738675958,
+  "repelStrength": 10.2526132404181,
+  "linkStrength": 0.543989547038328,
+  "linkDistance": 199,
+  "scale": 0.5087618712717035,
+  "close": true
+}

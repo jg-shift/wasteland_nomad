@@ -1,6 +1,9 @@
 extends Node
 class_name FlightSettings
 
+signal flight_completed
+signal flight_crashed
+
 @export var duration_sec: float = 120.0
 @export var final_speed_multiplier: float = 3.0
 @export var acceleration_start_ratio: float = 0.5
@@ -33,6 +36,11 @@ func _ready() -> void:
 		GameState.craft_destroyed.connect(_on_craft_destroyed)
 
 
+func _exit_tree() -> void:
+	if GameState.craft_destroyed.is_connected(_on_craft_destroyed):
+		GameState.craft_destroyed.disconnect(_on_craft_destroyed)
+
+
 func _process(delta: float) -> void:
 	if _finished:
 		return
@@ -42,7 +50,7 @@ func _process(delta: float) -> void:
 	_update_flight_speed()
 
 	if _elapsed_sec >= duration_sec:
-		_finish_flight()
+		_complete_flight()
 
 
 func _update_flight_speed() -> void:
@@ -61,13 +69,15 @@ func _update_flight_speed() -> void:
 	WorldUtils.set_flight_speed_multiplier(lerpf(1.0, final_speed_multiplier, t))
 
 
-func _finish_flight() -> void:
+func _complete_flight() -> void:
 	_finished = true
 	WorldUtils.set_flight_speed_multiplier(1.0)
-	SceneRouter.change_scene_to_file(finish_scene_path)
+	flight_completed.emit()
 
 
 func _on_craft_destroyed() -> void:
 	if _finished:
 		return
-	_finish_flight()
+	_finished = true
+	WorldUtils.set_flight_speed_multiplier(1.0)
+	flight_crashed.emit()

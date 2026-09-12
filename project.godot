@@ -22,6 +22,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 WorldUtils="*uid://d34q715qkre34"
+WorldLocations="*res://autoload/WorldLocations.gd"
+GameSession="*res://autoload/GameSession.gd"
 GameState="*uid://cocoo848svsjn"
 SceneRouter="*res://autoload/SceneRouter.gd"
 
