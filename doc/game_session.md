@@ -45,7 +45,6 @@ models. `GameSession.clear_session()` removes the active campaign state.
 
 Campaign-wide progression that belongs to the player profile:
 
-- Learned skills
 - Currency
 - Discovered hub and location IDs
 - Per-location state
@@ -144,7 +143,6 @@ Legacy calls such as:
 
 ```gdscript
 GameState.take_craft_damage(10)
-GameState.unlock_skill(&"repair")
 GameState.get_player_hp()
 GameState.add_points(100)
 ```

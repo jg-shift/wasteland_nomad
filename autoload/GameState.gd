@@ -12,8 +12,6 @@ signal craft_destroyed
 signal craft_weapon_damage_upgrade_changed(upgrade: int)
 signal points_changed(points: int)
 signal flight_progress_changed(progress: float)
-signal skill_unlocked(id: String)
-signal skill_upgraded(id: String, new_level: int)
 
 enum GameMode {
 	HUB,
@@ -43,14 +41,9 @@ var craft_upgrades: CraftUpgradeState:
 	get:
 		return GameSession.craft.upgrades
 
-var skills: SkillBook:
-	get:
-		return GameSession.profile.skills
-
 var _bound_player_health: HealthState
 var _bound_craft_health: HealthState
 var _bound_craft_upgrades: CraftUpgradeState
-var _bound_skills: SkillBook
 var _bound_score: ScoreState
 
 
@@ -69,7 +62,6 @@ func _bind_session_models() -> void:
 	_bound_player_health = player_health
 	_bound_craft_health = craft_health
 	_bound_craft_upgrades = craft_upgrades
-	_bound_skills = skills
 	_bound_score = score
 
 	_bound_player_health.changed.connect(_on_player_hp_changed)
@@ -79,8 +71,6 @@ func _bind_session_models() -> void:
 	_bound_craft_health.damage_taken.connect(_on_craft_damage_taken)
 	_bound_craft_health.depleted.connect(_on_craft_destroyed)
 	_bound_craft_upgrades.weapon_damage_changed.connect(_on_craft_weapon_damage_changed)
-	_bound_skills.unlocked.connect(_on_skill_unlocked)
-	_bound_skills.upgraded.connect(_on_skill_upgraded)
 	_bound_score.changed.connect(_on_points_changed)
 
 
@@ -110,12 +100,6 @@ func _unbind_session_models() -> void:
 		_bound_craft_upgrades.weapon_damage_changed.disconnect(
 			_on_craft_weapon_damage_changed
 		)
-
-	if _bound_skills != null:
-		if _bound_skills.unlocked.is_connected(_on_skill_unlocked):
-			_bound_skills.unlocked.disconnect(_on_skill_unlocked)
-		if _bound_skills.upgraded.is_connected(_on_skill_upgraded):
-			_bound_skills.upgraded.disconnect(_on_skill_upgraded)
 
 	if _bound_score != null and _bound_score.changed.is_connected(_on_points_changed):
 		_bound_score.changed.disconnect(_on_points_changed)
@@ -283,26 +267,6 @@ func reset_flight_progress() -> void:
 	flight_progress.reset()
 
 
-func is_skill_unlocked(id: String) -> bool:
-	return skills.is_unlocked(id)
-
-
-func get_skill_level(id: String) -> int:
-	return skills.get_level(id)
-
-
-func unlock_skill(id: String) -> void:
-	skills.unlock(id)
-
-
-func upgrade_skill(id: String) -> void:
-	skills.upgrade(id)
-
-
-func get_all_skills() -> Dictionary:
-	return skills.get_all()
-
-
 func _on_game_mode_changed(mode: int) -> void:
 	game_mode_changed.emit(mode)
 
@@ -341,11 +305,3 @@ func _on_points_changed(points: int) -> void:
 
 func _on_flight_progress_changed(progress: float) -> void:
 	flight_progress_changed.emit(progress)
-
-
-func _on_skill_unlocked(id: String) -> void:
-	skill_unlocked.emit(id)
-
-
-func _on_skill_upgraded(id: String, new_level: int) -> void:
-	skill_upgraded.emit(id, new_level)

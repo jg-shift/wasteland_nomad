@@ -12,13 +12,9 @@ func _ready() -> void:
 	GameState.add_craft_weapon_damage_upgrade(1)
 	assert(GameSession.craft.upgrades.get_weapon_damage_upgrade() == 1)
 
-	GameState.unlock_skill("session_test_skill")
-	assert(GameSession.profile.skills.is_unlocked("session_test_skill"))
-
 	GameSession.initialize_new_game()
 	assert(GameState.get_craft_hp() == 100)
 	assert(GameState.get_craft_weapon_damage_upgrade() == 0)
-	assert(not GameState.is_skill_unlocked("session_test_skill"))
 
 	GameSession.set_current_location(&"first_hub")
 	assert(GameSession.current_location_id == &"first_hub")
